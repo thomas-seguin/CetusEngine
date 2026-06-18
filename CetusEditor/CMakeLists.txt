@@ -5,7 +5,7 @@ add_executable(CetusEditor
 )
 
 target_link_libraries(CetusEditor PRIVATE
-        ArgusEngine
+        CetusEngine
 )
 
 target_compile_features(CetusEditor PUBLIC cxx_std_20)
