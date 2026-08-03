@@ -3,7 +3,7 @@
 #include "GLFWWindow.h"
 #include "Core/Events.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Cetus {
     static bool s_GLFWInitialized = false;
@@ -47,9 +47,10 @@ namespace Cetus {
             );
         assert(m_Window && "Failed to create window!");
 
-        glfwMakeContextCurrent(m_Window);
-        const int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        assert(status && "Failed to initialize GLAD");
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
+
+
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 
@@ -145,7 +146,7 @@ namespace Cetus {
 
     void GLFWWindow::OnUpdate() {
         glfwPollEvents();
-        glfwSwapBuffers(m_Window);
+        m_Context->SwapBuffers();
     }
 
     void GLFWWindow::SetVSync(bool enabled) {

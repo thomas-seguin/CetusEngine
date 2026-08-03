@@ -68,6 +68,7 @@ add_library(CetusEngine STATIC
         src/Platform/OpenGL/OpenGLContext.h
         src/Renderer/GraphicsContext.h
         src/ctpch.h
+        src/Platform/OpenGL/OpenGLContext.cpp
 )
 
 target_include_directories(CetusEngine PUBLIC

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Window.h"
+#include "Renderer/GraphicsContext.h"
 #define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
 
@@ -27,6 +28,7 @@ namespace Cetus {
 
     private:
         GLFWwindow* m_Window = nullptr;
+        GraphicsContext* m_Context;
 
         struct WindowData {
             std::string Title;
