@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Layer.h"
+#include "Window.h"
 
 #include <string>
 #include <memory>
@@ -30,9 +31,11 @@ namespace Cetus {
         static Application& Get();
         static float GetTime();
     private:
+        void OnEvent(Event& e);
         ApplicationSpecification m_Specification;
         bool m_Running = false;
 
+        std::unique_ptr<Window> m_Window;
         std::vector<std::unique_ptr<Layer>> m_LayerStack;
     };
 
