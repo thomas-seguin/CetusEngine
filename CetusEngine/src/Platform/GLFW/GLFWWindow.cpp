@@ -1,10 +1,9 @@
+#include "ctpch.h"
+
 #include "GLFWWindow.h"
-#include "Core/Log.h"
 #include "Core/Events.h"
 
 #include <glad/glad.h>
-
-#include <cassert>
 
 namespace Cetus {
     static bool s_GLFWInitialized = false;
@@ -49,7 +48,7 @@ namespace Cetus {
         assert(m_Window && "Failed to create window!");
 
         glfwMakeContextCurrent(m_Window);
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        const int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         assert(status && "Failed to initialize GLAD");
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);

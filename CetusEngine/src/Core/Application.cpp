@@ -1,7 +1,6 @@
+#include "ctpch.h"
 #include "Application.h"
-#include "Log.h"
 #include "Events.h"
-#include <cassert>
 
 namespace Cetus {
     static Application* s_Application = nullptr;

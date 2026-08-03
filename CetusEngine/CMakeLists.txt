@@ -65,6 +65,9 @@ add_library(CetusEngine STATIC
         src/Core/Events.h
         src/ImGui/ImGuiLayer.h
         src/ImGui/ImGuiLayer.cpp
+        src/Platform/OpenGL/OpenGLContext.h
+        src/Renderer/GraphicsContext.h
+        src/ctpch.h
 )
 
 target_include_directories(CetusEngine PUBLIC
@@ -77,3 +80,5 @@ target_link_libraries(CetusEngine PUBLIC glad)
 target_link_libraries(CetusEngine PUBLIC ImGui)
 
 target_compile_features(CetusEngine PUBLIC cxx_std_20)
+
+target_precompile_headers(CetusEngine PRIVATE "src/ctpch.h")
