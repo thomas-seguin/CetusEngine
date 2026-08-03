@@ -10,5 +10,6 @@ namespace Cetus {
 
         virtual void OnUpdate(float ts) {}
         virtual void OnRender() {}
+        virtual void OnImGuiRender() {}
     };
 }

@@ -26,6 +26,32 @@ FetchContent_Declare(
 set(GLAD_PROFILE "core" CACHE STRING "OpenGL profile")
 FetchContent_MakeAvailable(glad)
 
+# ImGui — docking branch, no CMakeLists of its own, so build it by hand
+FetchContent_Declare(
+        imgui
+        GIT_REPOSITORY https://github.com/ocornut/imgui.git
+        GIT_TAG        docking
+)
+FetchContent_MakeAvailable(imgui)
+
+add_library(ImGui STATIC
+        ${imgui_SOURCE_DIR}/imgui.cpp
+        ${imgui_SOURCE_DIR}/imgui_draw.cpp
+        ${imgui_SOURCE_DIR}/imgui_tables.cpp
+        ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+        ${imgui_SOURCE_DIR}/imgui_demo.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+)
+
+target_include_directories(ImGui PUBLIC
+        ${imgui_SOURCE_DIR}
+        ${imgui_SOURCE_DIR}/backends
+)
+
+target_compile_definitions(ImGui PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLAD)
+target_link_libraries(ImGui PUBLIC glfw glad)
+
 add_library(CetusEngine STATIC
         src/Core/Layer.h
         src/Core/Event.h
@@ -37,6 +63,8 @@ add_library(CetusEngine STATIC
         src/Platform/GLFW/GLFWWindow.h
         src/Platform/GLFW/GLFWWindow.cpp
         src/Core/Events.h
+        src/ImGui/ImGuiLayer.h
+        src/ImGui/ImGuiLayer.cpp
 )
 
 target_include_directories(CetusEngine PUBLIC
@@ -46,5 +74,6 @@ target_include_directories(CetusEngine PUBLIC
 target_link_libraries(CetusEngine PUBLIC spdlog::spdlog)
 target_link_libraries(CetusEngine PUBLIC glfw)
 target_link_libraries(CetusEngine PUBLIC glad)
+target_link_libraries(CetusEngine PUBLIC ImGui)
 
 target_compile_features(CetusEngine PUBLIC cxx_std_20)

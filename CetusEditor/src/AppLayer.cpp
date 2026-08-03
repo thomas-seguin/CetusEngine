@@ -1,6 +1,8 @@
 #include "AppLayer.h"
 #include "Core/Log.h"
 
+#include "imgui.h"
+
 AppLayer::AppLayer() {
     Cetus::Log::GetClientLogger()->info("AppLayer created");
 }
@@ -30,4 +32,8 @@ void AppLayer::OnUpdate(float ts) {
 
 void AppLayer::OnRender() {
 
+}
+
+void AppLayer::OnImGuiRender() {
+    ImGui::ShowDemoWindow();
 }

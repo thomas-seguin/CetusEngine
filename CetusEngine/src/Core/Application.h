@@ -7,6 +7,8 @@
 #include <memory>
 #include <vector>
 
+#include "ImGui/ImGuiLayer.h"
+
 namespace Cetus {
 
     struct ApplicationSpecification {
@@ -28,6 +30,9 @@ namespace Cetus {
             m_LayerStack.push_back(std::make_unique<TLayer>());
         }
 
+        inline Window& GetWindow() { return *m_Window; }
+
+
         static Application& Get();
         static float GetTime();
     private:
@@ -36,6 +41,7 @@ namespace Cetus {
         bool m_Running = false;
 
         std::unique_ptr<Window> m_Window;
+        std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
         std::vector<std::unique_ptr<Layer>> m_LayerStack;
     };
 

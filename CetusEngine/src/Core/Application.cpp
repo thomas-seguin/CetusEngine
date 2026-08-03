@@ -13,9 +13,13 @@ namespace Cetus {
 
         m_Window = Window::Create(WindowProps(m_Specification.Name));
         m_Window->SetEventCallback([this](Event& e) { OnEvent(e); });
+
+        m_ImGuiLayer = std::make_unique<ImGuiLayer>();
+        m_ImGuiLayer->Init();
     }
 
     Application::~Application() {
+        m_ImGuiLayer->Shutdown();
         Log::GetCoreLogger()->info("Application shutting down");
         s_Application = nullptr;
     }
@@ -29,6 +33,11 @@ namespace Cetus {
 
             for (const std::unique_ptr<Layer>& layer : m_LayerStack)
                 layer->OnRender();
+
+            m_ImGuiLayer->Begin();
+            for (const std::unique_ptr<Layer>& layer : m_LayerStack)
+                layer->OnImGuiRender();
+            m_ImGuiLayer->End();
 
             m_Window->OnUpdate();
         }
