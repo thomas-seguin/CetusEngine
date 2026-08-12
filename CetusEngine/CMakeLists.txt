@@ -69,6 +69,13 @@ add_library(CetusEngine STATIC
         src/Renderer/GraphicsContext.h
         src/ctpch.h
         src/Platform/OpenGL/OpenGLContext.cpp
+        src/Renderer/Shader.h
+        src/Renderer/Shader.cpp
+        src/Core/Core.h
+)
+
+target_compile_definitions(CetusEngine PUBLIC
+        $<$<CONFIG:Debug,RelWithDebInfo>:CT_ENABLE_ASSERTS>
 )
 
 target_include_directories(CetusEngine PUBLIC

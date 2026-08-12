@@ -9,6 +9,8 @@
 
 #include "ImGui/ImGuiLayer.h"
 
+#include "Renderer/Shader.h"
+
 namespace Cetus {
 
     struct ApplicationSpecification {
@@ -36,6 +38,7 @@ namespace Cetus {
         static Application& Get();
         static float GetTime();
     private:
+
         void OnEvent(Event& e);
         ApplicationSpecification m_Specification;
         bool m_Running = false;
@@ -43,6 +46,9 @@ namespace Cetus {
         std::unique_ptr<Window> m_Window;
         std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
         std::vector<std::unique_ptr<Layer>> m_LayerStack;
+
+        unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+        std::unique_ptr<Shader> m_Shader;
     };
 
 }
