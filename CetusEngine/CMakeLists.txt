@@ -72,6 +72,12 @@ add_library(CetusEngine STATIC
         src/Renderer/Shader.h
         src/Renderer/Shader.cpp
         src/Core/Core.h
+        src/Renderer/Buffer.h
+        src/Renderer/Buffer.cpp
+        src/Platform/OpenGL/OpenGLBuffer.h
+        src/Platform/OpenGL/OpenGLBuffer.cpp
+        src/Renderer/Renderer.h
+        src/Renderer/Renderer.cpp
 )
 
 target_compile_definitions(CetusEngine PUBLIC

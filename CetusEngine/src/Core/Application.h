@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "ImGui/ImGuiLayer.h"
+#include "Renderer/Buffer.h"
 
 #include "Renderer/Shader.h"
 
@@ -47,8 +48,11 @@ namespace Cetus {
         std::unique_ptr<ImGuiLayer> m_ImGuiLayer;
         std::vector<std::unique_ptr<Layer>> m_LayerStack;
 
-        unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+        unsigned int m_VertexArray;
         std::unique_ptr<Shader> m_Shader;
+        std::unique_ptr<VertexBuffer> m_VertexBuffer;
+        std::unique_ptr<IndexBuffer> m_IndexBuffer;
+
     };
 
 }
