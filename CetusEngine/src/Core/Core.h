@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core/Log.h"
+
 #ifdef CT_DEBUG
     #define CT_ENABLE_ASSERTS
 #endif
