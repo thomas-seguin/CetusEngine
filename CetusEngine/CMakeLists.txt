@@ -17,6 +17,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
+# GLM - OpenGL Math Library
+FetchContent_Declare(
+        glm
+        GIT_REPOSITORY	https://github.com/g-truc/glm.git
+        GIT_TAG 	0af55ccecd98d4e5a8d1fad7de25ba429d60e863 #refs/tags/1.0.1
+)
+FetchContent_MakeAvailable(glm)
+
 # GLAD - OpenGL Loader
 FetchContent_Declare(
         glad
@@ -78,6 +86,16 @@ add_library(CetusEngine STATIC
         src/Platform/OpenGL/OpenGLBuffer.cpp
         src/Renderer/Renderer.h
         src/Renderer/Renderer.cpp
+        src/Renderer/VertexArray.h
+        src/Renderer/VertexArray.cpp
+        src/Platform/OpenGL/OpenGLVertexArray.h
+        src/Platform/OpenGL/OpenGLVertexArray.cpp
+        src/Renderer/RendererAPI.h
+        src/Renderer/RendererAPI.cpp
+        src/Renderer/RenderCommand.h
+        src/Renderer/RenderCommand.cpp
+        src/Platform/OpenGL/OpenGLRendererAPI.h
+        src/Platform/OpenGL/OpenGLRendererAPI.cpp
 )
 
 target_compile_definitions(CetusEngine PUBLIC
@@ -92,6 +110,7 @@ target_link_libraries(CetusEngine PUBLIC spdlog::spdlog)
 target_link_libraries(CetusEngine PUBLIC glfw)
 target_link_libraries(CetusEngine PUBLIC glad)
 target_link_libraries(CetusEngine PUBLIC ImGui)
+target_link_libraries(CetusEngine PUBLIC glm::glm)
 
 target_compile_features(CetusEngine PUBLIC cxx_std_20)
 
