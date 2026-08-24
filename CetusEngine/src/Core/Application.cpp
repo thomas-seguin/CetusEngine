@@ -63,58 +63,8 @@ namespace Cetus {
         squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
         m_SquareVA->SetIndexBuffer(squareIB);
 
-        std::string vertexSrc = R"(
-            #version 330 core
-
-            layout(location = 0) in vec3 a_Position;
-            layout(location = 1) in vec4 a_Color;
-
-            out vec4 v_Color;
-            void main()
-            {
-                v_Color = a_Color;
-                gl_Position = vec4(a_Position, 1.0f);
-            }
-        )";
-
-        std::string fragmentSrc = R"(
-            #version 330 core
-
-            layout(location = 0) out vec4 color;
-
-            in vec4 v_Color;
-
-            void main()
-            {
-                color = vec4(0.8, 0.2, 0.3, 1.0);
-                color = v_Color;
-            }
-        )";
-
-        std::string squareVertexSrc = R"(
-            #version 330 core
-
-            layout(location = 0) in vec3 a_Position;
-
-            void main()
-            {
-                gl_Position = vec4(a_Position, 1.0f);
-            }
-        )";
-
-        std::string squareFragmentSrc = R"(
-            #version 330 core
-
-            layout(location = 0) out vec4 color;
-
-            void main()
-            {
-                color = vec4(0.8, 0.2, 0.3, 1.0);
-            }
-        )";
-
-        m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
-        m_SquareShader.reset(new Shader(squareVertexSrc, squareFragmentSrc));
+        m_Shader = Shader::Create("assets/shaders/Triangle.glsl");
+        m_SquareShader = Shader::Create("assets/shaders/Square.glsl");
 
     }
 

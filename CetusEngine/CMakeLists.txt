@@ -96,6 +96,8 @@ add_library(CetusEngine STATIC
         src/Renderer/RenderCommand.cpp
         src/Platform/OpenGL/OpenGLRendererAPI.h
         src/Platform/OpenGL/OpenGLRendererAPI.cpp
+        src/Platform/OpenGL/OpenGLShader.h
+        src/Platform/OpenGL/OpenGLShader.cpp
 )
 
 target_compile_definitions(CetusEngine PUBLIC
