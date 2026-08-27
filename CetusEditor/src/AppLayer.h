@@ -3,6 +3,12 @@
 #include "Core/Layer.h"
 #include "Core/Events.h"
 
+#include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+
+#include <memory>
+
 class AppLayer : public Cetus::Layer {
 public:
     AppLayer();
@@ -14,5 +20,12 @@ public:
     virtual void OnRender() override;
     void OnImGuiRender() override;
 
+private:
+    std::shared_ptr<Cetus::Shader> m_Shader;
+    std::shared_ptr<Cetus::VertexBuffer> m_VertexBuffer;
+    std::shared_ptr<Cetus::IndexBuffer> m_IndexBuffer;
+    std::shared_ptr<Cetus::VertexArray> m_VertexArray;
 
+    std::shared_ptr<Cetus::Shader> m_SquareShader;
+    std::shared_ptr<Cetus::VertexArray> m_SquareVA;
 };
