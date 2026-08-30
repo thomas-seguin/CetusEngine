@@ -34,6 +34,14 @@ FetchContent_Declare(
 set(GLAD_PROFILE "core" CACHE STRING "OpenGL profile")
 FetchContent_MakeAvailable(glad)
 
+# STB - Image loading library. Vendored directly in-tree (vendor/stb_image/)
+# rather than fetched, since it's just two files with no versioned releases.
+add_library(stb_image STATIC
+        vendor/stb_image/stb_image.cpp
+)
+
+target_include_directories(stb_image PUBLIC vendor/stb_image)
+
 # ImGui — docking branch, no CMakeLists of its own, so build it by hand
 FetchContent_Declare(
         imgui
@@ -98,6 +106,10 @@ add_library(CetusEngine STATIC
         src/Platform/OpenGL/OpenGLRendererAPI.cpp
         src/Platform/OpenGL/OpenGLShader.h
         src/Platform/OpenGL/OpenGLShader.cpp
+        src/Renderer/FrameBuffer.h
+        src/Renderer/FrameBuffer.cpp
+        src/Platform/OpenGL/OpenGLFramebuffer.h
+        src/Platform/OpenGL/OpenGLFramebuffer.cpp
 )
 
 target_compile_definitions(CetusEngine PUBLIC
@@ -113,6 +125,7 @@ target_link_libraries(CetusEngine PUBLIC glfw)
 target_link_libraries(CetusEngine PUBLIC glad)
 target_link_libraries(CetusEngine PUBLIC ImGui)
 target_link_libraries(CetusEngine PUBLIC glm::glm)
+target_link_libraries(CetusEngine PUBLIC stb_image)
 
 target_compile_features(CetusEngine PUBLIC cxx_std_20)
 

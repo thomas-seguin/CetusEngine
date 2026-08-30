@@ -6,8 +6,11 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/FrameBuffer.h"
+
 
 #include <memory>
+
 
 class AppLayer : public Cetus::Layer {
 public:
@@ -28,4 +31,6 @@ private:
 
     std::shared_ptr<Cetus::Shader> m_SquareShader;
     std::shared_ptr<Cetus::VertexArray> m_SquareVA;
+
+    std::shared_ptr<Cetus::FrameBuffer> m_Framebuffer;
 };

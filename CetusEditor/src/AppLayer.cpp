@@ -8,6 +8,11 @@
 AppLayer::AppLayer() {
     Cetus::Log::GetClientLogger()->info("AppLayer created");
 
+    Cetus::FramebufferSpec fbSpec;
+    fbSpec.Width = 1280;
+    fbSpec.Height = 720;
+    m_Framebuffer = Cetus::FrameBuffer::Create(fbSpec);
+
     m_VertexArray.reset(Cetus::VertexArray::Create());
 
     float vertices[3*7] = {
@@ -68,13 +73,32 @@ void AppLayer::OnUpdate(float ts) {
 }
 
 void AppLayer::OnRender() {
+    m_Framebuffer->Bind();
+
     m_SquareShader->Bind();
     Cetus::Renderer::Submit(m_SquareVA);
 
     m_Shader->Bind();
     Cetus::Renderer::Submit(m_VertexArray);
+
+    m_Framebuffer->UnBind();
 }
 
 void AppLayer::OnImGuiRender() {
-    ImGui::ShowDemoWindow();
+    ImGui::DockSpaceOverViewport();
+
+    ImGui::Begin("Viewport");
+    uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+    ImGui::Image((ImTextureID)(intptr_t)textureID,
+                 ImGui::GetContentRegionAvail(),
+                 ImVec2{0, 1}, ImVec2{1, 0});
+    ImGui::End();
+
+    ImGui::Begin("Scene Hierarchy");
+    ImGui::Text("Scene / entity list will go here.");
+    ImGui::End();
+
+    ImGui::Begin("Properties");
+    ImGui::Text("Selected entity's properties will go here.");
+    ImGui::End();
 }
