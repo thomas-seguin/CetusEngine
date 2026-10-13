@@ -5,6 +5,10 @@
 
 #include "imgui.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 AppLayer::AppLayer() {
     Cetus::Log::GetClientLogger()->info("AppLayer created");
 
@@ -73,13 +77,24 @@ void AppLayer::OnUpdate(float ts) {
 }
 
 void AppLayer::OnRender() {
+    // CAMERA SETUP
+    glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    glm::mat4 view          = glm::mat4(1.0f);
+    glm::mat4 projection    = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    projection = glm::perspective(glm::radians(45.0f), (float)1280 / (float)720, 0.1f, 100.0f);
+
     m_Framebuffer->Bind();
 
     m_SquareShader->Bind();
+    m_SquareShader->SetMat4("u_Model", model);
+    m_SquareShader->SetMat4("u_View", view);
+    m_SquareShader->SetMat4("u_Projection", projection);
     Cetus::Renderer::Submit(m_SquareVA);
 
-    m_Shader->Bind();
-    Cetus::Renderer::Submit(m_VertexArray);
+    // m_Shader->Bind();
+    // Cetus::Renderer::Submit(m_VertexArray);
 
     m_Framebuffer->UnBind();
 }
